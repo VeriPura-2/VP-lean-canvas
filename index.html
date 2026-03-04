@@ -418,6 +418,73 @@
   }
   .fade-in { animation: fadeUp .5s ease both; }
 
+
+  /* ── SAFE TERMS ──────────────────────────────────────────────────── */
+  .safe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .safe-card {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem 1.4rem;
+    background: var(--pale);
+  }
+  .safe-card--highlight {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .safe-card--highlight .safe-label { color: var(--sky); }
+  .safe-card--highlight .safe-value { color: var(--gold); }
+  .safe-card--highlight .safe-note  { color: rgba(214,228,240,0.7); }
+  .safe-label {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 0.4rem;
+  }
+  .safe-value {
+    font-family: var(--font-serif); font-size: 1.6rem;
+    color: var(--navy); line-height: 1; margin-bottom: 0.4rem;
+  }
+  .safe-note {
+    font-size: 0.75rem; color: var(--muted); line-height: 1.4;
+  }
+  .safe-footer {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 1.6rem 2rem;
+  }
+  .safe-moic-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; margin-bottom: 1rem; flex-wrap: wrap;
+  }
+  .safe-moic-item {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 0 2rem;
+  }
+  .safe-moic-item--gold .safe-moic-val { color: var(--gold); }
+  .safe-moic-val {
+    font-family: var(--font-serif); font-size: 2rem;
+    color: var(--white); line-height: 1;
+  }
+  .safe-moic-lbl {
+    font-size: 0.68rem; color: var(--sky);
+    letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.3rem;
+  }
+  .safe-moic-divider {
+    width: 1px; height: 40px; background: rgba(255,255,255,.15);
+  }
+  .safe-disclaimer {
+    font-size: 0.72rem; color: rgba(214,228,240,0.5);
+    text-align: center; line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .safe-grid { grid-template-columns: 1fr 1fr; }
+    .safe-moic-item { padding: 0 1rem; }
+    .safe-value { font-size: 1.3rem; }
+  }
   /* ── PRINT ────────────────────────────────────────────────────────── */
   @media print {
     .site-header, #cta, footer, .btn-pdf, .canvas-cell::after { display: none !important; }
@@ -476,6 +543,7 @@
     <a href="#corridors">Corridors</a>
     <a href="#charts">Financials</a>
     <a href="#founders">Team</a>
+    <a href="#invest">Invest</a>
     <a href="#cta">Contact</a>
   </nav>
 </header>
@@ -713,12 +781,82 @@
   </div>
 </section>
 
+
+<!-- ── SAFE TERMS ────────────────────────────────────────────────────────── -->
+<section class="section" id="invest" style="background: var(--white);">
+  <div class="section-inner">
+    <h2 class="section-title">Investment <span>Terms</span></h2>
+    <p class="section-desc">Pre-Seed SAFE · March 2026 · Confidential</p>
+    <hr class="divider">
+    <div class="safe-grid">
+
+      <div class="safe-card safe-card--highlight">
+        <div class="safe-label">Raise</div>
+        <div class="safe-value">€750,000</div>
+        <div class="safe-note">Pre-seed SAFE · First close open now</div>
+      </div>
+
+      <div class="safe-card">
+        <div class="safe-label">Valuation Cap</div>
+        <div class="safe-value">€3.75M</div>
+        <div class="safe-note">Post-money · 5× cap on raise amount</div>
+      </div>
+
+      <div class="safe-card">
+        <div class="safe-label">Discount</div>
+        <div class="safe-value">20%</div>
+        <div class="safe-note">Applied at next equity round conversion</div>
+      </div>
+
+      <div class="safe-card">
+        <div class="safe-label">Instrument</div>
+        <div class="safe-value">SAFE</div>
+        <div class="safe-note">Simple Agreement for Future Equity · YC standard</div>
+      </div>
+
+      <div class="safe-card">
+        <div class="safe-label">Pro-Rata Rights</div>
+        <div class="safe-value">Included</div>
+        <div class="safe-note">Right to participate in Series A at same terms</div>
+      </div>
+
+      <div class="safe-card">
+        <div class="safe-label">Governing Law</div>
+        <div class="safe-value">English Law</div>
+        <div class="safe-note">Singapore venue · SIAC arbitration rules</div>
+      </div>
+
+    </div>
+
+    <div class="safe-footer">
+      <div class="safe-moic-row">
+        <div class="safe-moic-item">
+          <span class="safe-moic-val">26×</span>
+          <span class="safe-moic-lbl">Bear MOIC (Y5)</span>
+        </div>
+        <div class="safe-moic-divider"></div>
+        <div class="safe-moic-item">
+          <span class="safe-moic-val">40×</span>
+          <span class="safe-moic-lbl">Base MOIC (Y5)</span>
+        </div>
+        <div class="safe-moic-divider"></div>
+        <div class="safe-moic-item safe-moic-item--gold">
+          <span class="safe-moic-val">60×</span>
+          <span class="safe-moic-lbl">Bull MOIC (Y5)</span>
+        </div>
+      </div>
+      <p class="safe-disclaimer">Full SAFE document, financial model and cap table available in the data room. Returns based on VeriPura_Financial_Model_v5.xlsx · 8–18× revenue exit multiple at Y5.</p>
+    </div>
+
+  </div>
+</section>
+
 <!-- ── CTA ─────────────────────────────────────────────────────────────────── -->
 <section id="cta">
   <h2>Request the Data Room</h2>
   <p>Full SAFE documents, financial model and investor materials available on request.</p>
   <div class="cta-buttons">
-    <a class="btn-primary" href="mailto:thomas@veripura.com?subject=VeriPura%20%E2%80%94%20I%20Want%20to%20Know%20More&body=Hi%20Thomas%2C%0A%0AI%20came%20across%20VeriPura%20and%20would%20like%20to%20learn%20more.">I WANT TO KNOW MORE</a>
+    <a class="btn-primary" href="/cdn-cgi/l/email-protection#8df9e5e2e0ecfecdfbe8ffe4fdf8ffeca3eee2e0b2fef8efe7e8eef9b0dbe8ffe4ddf8ffeca8bfbda8c8bfa8b5bda8b4b9a8bfbdc4a8bfbddaece3f9a8bfbdf9e2a8bfbdc6e3e2faa8bfbdc0e2ffe8abefe2e9f4b0c5e4a8bfbdd9e5e2e0ecfea8bfcea8bdcca8bdccc4a8bfbdeeece0e8a8bfbdeceeffe2fefea8bfbddbe8ffe4ddf8ffeca8bfbdece3e9a8bfbdfae2f8e1e9a8bfbde1e4e6e8a8bfbdf9e2a8bfbde1e8ecffe3a8bfbde0e2ffe8a3">I WANT TO KNOW MORE</a>
   </div>
 </section>
 
@@ -742,7 +880,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── MODAL DATA ──────────────────────────────────────────────────────────────
 const MODALS = {
   problem: {
@@ -1070,8 +1208,26 @@ const CPI_DATA = [
 ];
 
 function cpiColor(score) {
-  // low score = more red, high score = more blue/green
   if (score < 30) return '#8B1A1A';
   if (score < 35) return '#C0392B';
   if (score < 40) return '#D4524A';
-  if 
+  if (score < 45) return '#D4834A';
+  return '#2E7D52';
+}
+
+const heatmap = document.getElementById('heatmap');
+CPI_DATA.forEach(d => {
+  const div = document.createElement('div');
+  div.className = 'heatmap-item';
+  div.style.background = cpiColor(d.score);
+  const pct = Math.round((d.score / 100) * 80);
+  div.innerHTML = `
+    <div class="heatmap-country">${d.country}</div>
+    <div class="heatmap-score">${d.score}</div>
+    <div class="heatmap-label">CPI Score · ${d.region}</div>
+    <div class="heatmap-bar" style="width:${pct}%"></div>`;
+  heatmap.appendChild(div);
+});
+</script>
+</body>
+</html>
