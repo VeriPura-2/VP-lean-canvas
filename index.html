@@ -744,6 +744,125 @@
     .traction-grid { grid-template-columns: 1fr; }
   }
 
+
+  /* ── FINANCIAL SECTION ───────────────────────────────────────────── */
+  .fin-kpi-strip {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--navy); border-radius: 10px;
+    padding: 1.2rem 1.8rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.8rem;
+  }
+  .fin-kpi { text-align: center; flex: 1; min-width: 100px; }
+  .fin-kpi-val {
+    font-family: var(--font-serif); font-size: 1.4rem;
+    color: var(--gold); line-height: 1; margin-bottom: 0.25rem;
+  }
+  .fin-kpi-lbl {
+    font-size: 0.65rem; color: var(--sky); letter-spacing: 0.05em;
+    text-transform: uppercase; line-height: 1.3;
+  }
+  .fin-kpi-div {
+    width: 1px; height: 36px; background: rgba(255,255,255,.12); flex-shrink: 0;
+  }
+
+  /* runway */
+  .runway-track {
+    position: relative; height: 12px; background: var(--border);
+    border-radius: 6px; margin: 1.2rem 0 2.5rem; overflow: visible;
+  }
+  .runway-fill {
+    height: 100%; border-radius: 6px;
+    background: linear-gradient(90deg, var(--blue) 0%, var(--blue-lt) 55%, var(--gold) 100%);
+  }
+  .runway-marker {
+    position: absolute; top: -4px; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .runway-marker-line {
+    width: 2px; height: 20px; background: var(--navy); margin-bottom: 4px;
+  }
+  .runway-marker-label {
+    font-size: 0.68rem; color: var(--navy); font-weight: 600;
+    text-align: center; line-height: 1.3; white-space: nowrap;
+  }
+  .runway-legend {
+    font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem;
+  }
+
+  /* calculator */
+  .calc-card { background: var(--white); }
+  .calc-layout {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;
+    margin: 1.2rem 0 1rem; align-items: start;
+  }
+  .calc-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem;
+    display: block;
+  }
+  .calc-input-row {
+    display: flex; align-items: center; border: 1.5px solid var(--border);
+    border-radius: 6px; overflow: hidden; background: var(--pale);
+  }
+  .calc-currency {
+    padding: 0.6rem 0.7rem; background: var(--navy); color: var(--gold);
+    font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600;
+  }
+  .calc-input {
+    border: none; background: transparent; padding: 0.6rem 0.8rem;
+    font-family: var(--font-mono); font-size: 1rem; color: var(--navy);
+    width: 100%; outline: none;
+  }
+  .calc-min-note {
+    font-size: 0.7rem; color: var(--muted); margin-top: 0.4rem; margin-bottom: 0.8rem;
+  }
+  .calc-presets { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .calc-preset {
+    background: var(--pale); border: 1.5px solid var(--border);
+    border-radius: 4px; padding: 0.3rem 0.7rem;
+    font-size: 0.75rem; font-weight: 600; color: var(--navy);
+    cursor: pointer; transition: all .15s; font-family: var(--font-mono);
+  }
+  .calc-preset:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .calc-results { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+  .calc-scenario {
+    border-radius: 8px; padding: 1rem 1.1rem; text-align: center;
+    border: 1.5px solid var(--border);
+  }
+  .calc-scenario--bear { background: var(--pale); }
+  .calc-scenario--base { background: var(--sky); border-color: var(--blue-lt); }
+  .calc-scenario--bull { background: var(--navy); border-color: var(--navy); }
+  .calc-scenario-label {
+    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 0.5rem; color: var(--muted);
+  }
+  .calc-scenario--bull .calc-scenario-label { color: var(--sky); }
+  .calc-scenario-val {
+    font-family: var(--font-serif); font-size: 1.35rem;
+    color: var(--navy); line-height: 1; margin-bottom: 0.3rem;
+  }
+  .calc-scenario--bull .calc-scenario-val { color: var(--gold); }
+  .calc-scenario-moic {
+    font-family: var(--font-mono); font-size: 0.78rem;
+    color: var(--blue); font-weight: 600;
+  }
+  .calc-scenario--bull .calc-scenario-moic { color: var(--sky); }
+  .calc-disclaimer {
+    font-size: 0.68rem; color: var(--muted); line-height: 1.5;
+    border-top: 1px solid var(--border); padding-top: 0.8rem; margin-top: 0.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .fin-kpi-strip { justify-content: center; }
+    .fin-kpi-div { display: none; }
+    .calc-layout { grid-template-columns: 1fr; }
+    .calc-results { grid-template-columns: repeat(3,1fr); }
+  }
+  @media (max-width: 600px) {
+    .calc-results { grid-template-columns: 1fr; }
+    .fin-kpi { min-width: 80px; }
+    .fin-kpi-val { font-size: 1.1rem; }
+  }
+
   /* ── PRINT ────────────────────────────────────────────────────────── */
   @media print {
     .site-header, #cta, footer, .btn-pdf, .canvas-cell::after { display: none !important; }
@@ -994,86 +1113,188 @@
 </section>
 
 <!-- ── CHARTS ─────────────────────────────────────────────────────────────── -->
-<section class="section" id="charts">
+<section class="section" id="charts" style="background: var(--cream);">
   <div class="section-inner">
     <h2 class="section-title">5-Year <span>Financial Snapshot</span></h2>
-    <p class="section-desc">Based on VeriPura_Financial_Model_v5.xlsx · All values in Euro (€)</p>
+    <p class="section-desc">Based on VeriPura_Financial_Model_v5.xlsx · All values in Euro (€) · Base case</p>
     <hr class="divider">
-    <div class="charts-grid">
 
-      <!-- ARR chart -->
-      <div class="chart-card">
+    <!-- Full-width annotated revenue chart -->
+    <div class="chart-card" style="margin-bottom: 1.5rem;">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.3rem;">
         <div class="chart-card-title">Net Revenue Trajectory</div>
-        <div class="chart-card-sub">Y1 2026 → Y5 2030 · 255% CAGR</div>
-        <svg class="bar-chart" viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg">
-          <!-- max value €33.16M → scale to 170px height -->
-          <defs>
-            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#2E5FA3"/>
-              <stop offset="100%" stop-color="#4A80C4" stop-opacity=".7"/>
-            </linearGradient>
-            <linearGradient id="barGradGold" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#D4A847"/>
-              <stop offset="100%" stop-color="#D4A847" stop-opacity=".6"/>
-            </linearGradient>
-          </defs>
-          <!-- Y axis labels -->
-          <text x="0" y="30"  fill="#5A6878" font-size="9" font-family="DM Mono,monospace">€33M</text>
-          <text x="0" y="80"  fill="#5A6878" font-size="9" font-family="DM Mono,monospace">€20M</text>
-          <text x="0" y="130" fill="#5A6878" font-size="9" font-family="DM Mono,monospace">€8M</text>
-          <!-- grid lines -->
-          <line x1="35" y1="25"  x2="415" y2="25"  stroke="#E0E8F0" stroke-width="1"/>
-          <line x1="35" y1="75"  x2="415" y2="75"  stroke="#E0E8F0" stroke-width="1"/>
-          <line x1="35" y1="125" x2="415" y2="125" stroke="#E0E8F0" stroke-width="1"/>
-          <line x1="35" y1="175" x2="415" y2="175" stroke="#CBD8E8" stroke-width="1"/>
-          <!-- bars: Y1 €208K, Y2 €1.24M, Y3 €5.19M, Y4 €15.0M, Y5 €33.2M -->
-          <!-- scale: 33.2M = 150px → 1M = 4.52px -->
-          <rect x="50"  y="174" width="52" height="1"   fill="url(#barGrad)" rx="2"/>
-          <rect x="126" y="169" width="52" height="6"   fill="url(#barGrad)" rx="2"/>
-          <rect x="202" y="152" width="52" height="23"  fill="url(#barGrad)" rx="2"/>
-          <rect x="278" y="107" width="52" height="68"  fill="url(#barGrad)" rx="2"/>
-          <rect x="354" y="25"  width="52" height="150" fill="url(#barGradGold)" rx="2"/>
-          <!-- labels -->
-          <text x="76"  y="168" fill="#1F3864" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">€208K</text>
-          <text x="152" y="163" fill="#1F3864" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">€1.24M</text>
-          <text x="228" y="146" fill="#1F3864" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">€5.19M</text>
-          <text x="304" y="101" fill="#1F3864" font-size="8" font-family="DM Mono,monospace" text-anchor="middle">€15.0M</text>
-          <text x="380" y="19"  fill="#D4A847" font-size="8" font-family="DM Mono,monospace" text-anchor="middle" font-weight="600">€33.2M</text>
-          <!-- x labels -->
-          <text x="76"  y="192" fill="#5A6878" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Y1 '26</text>
-          <text x="152" y="192" fill="#5A6878" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Y2 '27</text>
-          <text x="228" y="192" fill="#5A6878" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Y3 '28</text>
-          <text x="304" y="192" fill="#5A6878" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle">Y4 '29</text>
-          <text x="380" y="192" fill="#D4A847" font-size="9" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">Y5 '30</text>
-        </svg>
+        <div class="chart-card-sub" style="margin-bottom:0;">Y1 2026 → Y5 2030 · Base case · 255% CAGR</div>
       </div>
-
+      <svg class="bar-chart" viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg" style="margin-top:0.8rem;">
+        <defs>
+          <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2E5FA3"/>
+            <stop offset="100%" stop-color="#4A80C4" stop-opacity=".7"/>
+          </linearGradient>
+          <linearGradient id="barGradGold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#D4A847"/>
+            <stop offset="100%" stop-color="#D4A847" stop-opacity=".65"/>
+          </linearGradient>
+        </defs>
+        <!-- Y axis labels -->
+        <text x="0" y="28"  fill="#5A6878" font-size="11" font-family="DM Mono,monospace">€33M</text>
+        <text x="0" y="78"  fill="#5A6878" font-size="11" font-family="DM Mono,monospace">€20M</text>
+        <text x="0" y="128" fill="#5A6878" font-size="11" font-family="DM Mono,monospace">€10M</text>
+        <text x="0" y="178" fill="#5A6878" font-size="11" font-family="DM Mono,monospace">€0</text>
+        <!-- grid lines -->
+        <line x1="55" y1="22"  x2="895" y2="22"  stroke="#E0E8F0" stroke-width="1"/>
+        <line x1="55" y1="72"  x2="895" y2="72"  stroke="#E0E8F0" stroke-width="1"/>
+        <line x1="55" y1="122" x2="895" y2="122" stroke="#E0E8F0" stroke-width="1"/>
+        <line x1="55" y1="172" x2="895" y2="172" stroke="#CBD8E8" stroke-width="1.5"/>
+        <!-- bars scale: 33.2M=150px; Y1=€208K=0.9px min 2px, Y2=€1.24M=5.6px, Y3=€5.19M=23.5px, Y4=€15.0M=67.8px, Y5=€33.2M=150px -->
+        <!-- bar width 100px, gap ~68px, start x=80 -->
+        <rect x="80"  y="170" width="100" height="2"   fill="url(#barGrad)" rx="3"/>
+        <rect x="248" y="166" width="100" height="6"   fill="url(#barGrad)" rx="3"/>
+        <rect x="416" y="148" width="100" height="24"  fill="url(#barGrad)" rx="3"/>
+        <rect x="584" y="103" width="100" height="69"  fill="url(#barGrad)" rx="3"/>
+        <rect x="752" y="22"  width="100" height="150" fill="url(#barGradGold)" rx="3"/>
+        <!-- revenue labels above bars -->
+        <text x="130" y="162" fill="#1F3864" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="600">€208K</text>
+        <text x="298" y="158" fill="#1F3864" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="600">€1.24M</text>
+        <text x="466" y="140" fill="#1F3864" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="600">€5.19M</text>
+        <text x="634" y="95"  fill="#1F3864" font-size="11" font-family="DM Mono,monospace" text-anchor="middle" font-weight="600">€15.0M</text>
+        <text x="802" y="14"  fill="#D4A847" font-size="12" font-family="DM Mono,monospace" text-anchor="middle" font-weight="700">€33.2M</text>
+        <!-- x year labels -->
+        <text x="130" y="196" fill="#5A6878" font-size="12" font-family="DM Sans,sans-serif" text-anchor="middle">Y1 2026</text>
+        <text x="298" y="196" fill="#5A6878" font-size="12" font-family="DM Sans,sans-serif" text-anchor="middle">Y2 2027</text>
+        <text x="466" y="196" fill="#5A6878" font-size="12" font-family="DM Sans,sans-serif" text-anchor="middle">Y3 2028</text>
+        <text x="634" y="196" fill="#5A6878" font-size="12" font-family="DM Sans,sans-serif" text-anchor="middle">Y4 2029</text>
+        <text x="802" y="196" fill="#D4A847" font-size="12" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">Y5 2030</text>
+        <!-- milestone annotations -->
+        <line x1="130" y1="155" x2="130" y2="210" stroke="none"/>
+        <text x="130" y="216" fill="#2E5FA3" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">Anchor partner</text>
+        <text x="298" y="216" fill="#2E5FA3" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">Series A</text>
+        <text x="466" y="216" fill="#2E5FA3" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">Vitamins live</text>
+        <text x="634" y="216" fill="#2E5FA3" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle">EBITDA positive</text>
+        <text x="802" y="216" fill="#D4A847" font-size="9.5" font-family="DM Sans,sans-serif" text-anchor="middle" font-weight="600">Exit window</text>
+      </svg>
     </div>
 
-    <!-- financial table -->
-    <div style="margin-top:2rem;">
-      <div class="chart-card">
-        <div class="chart-card-title">Income Statement Summary</div>
-        <div class="chart-card-sub">Fiscal years 2026–2030 · Euro (€)</div>
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Line Item</th>
-              <th>Y1 2026</th><th>Y2 2027</th><th>Y3 2028</th><th>Y4 2029</th><th>Y5 2030</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Net Revenue</td><td class="num">€208K</td><td class="num">€1.24M</td><td class="num">€5.19M</td><td class="num">€15.0M</td><td class="num pos">€33.2M</td></tr>
-            <tr><td>Gross Margin</td><td class="num">71%</td><td class="num">73%</td><td class="num">75%</td><td class="num">77%</td><td class="num pos">79%</td></tr>
-            <tr><td>EBITDA</td><td class="num neg">(€592K)</td><td class="num neg">(€889K)</td><td class="num neg">(€700K)</td><td class="num pos">€2.46M</td><td class="num pos">€11.1M</td></tr>
-            <tr><td>EBITDA Margin</td><td class="num neg">-284%</td><td class="num neg">-72%</td><td class="num neg">-13%</td><td class="num pos">16.4%</td><td class="num pos">33.5%</td></tr>
-            <tr><td>Cash EOP</td><td class="num">€187K</td><td class="num">€3.41M</td><td class="num">€21.5M</td><td class="num">€25.9M</td><td class="num pos">€40.3M</td></tr>
-            <tr><td>Active Clients</td><td class="num">21</td><td class="num">122</td><td class="num">449</td><td class="num">1,237</td><td class="num pos">2,610</td></tr>
-            <tr><td>FTEs</td><td class="num">6</td><td class="num">11</td><td class="num">23</td><td class="num">39</td><td class="num">57</td></tr>
-          </tbody>
-        </table>
+    <!-- Unit economics strip -->
+    <div class="fin-kpi-strip">
+      <div class="fin-kpi">
+        <div class="fin-kpi-val">135×</div>
+        <div class="fin-kpi-lbl">LTV : CAC (Y3)</div>
+      </div>
+      <div class="fin-kpi-div"></div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-val">2.1 mo</div>
+        <div class="fin-kpi-lbl">CAC Payback (Y3)</div>
+      </div>
+      <div class="fin-kpi-div"></div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-val">71→79%</div>
+        <div class="fin-kpi-lbl">Gross Margin Y1→Y5</div>
+      </div>
+      <div class="fin-kpi-div"></div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-val">Y4</div>
+        <div class="fin-kpi-lbl">EBITDA Positive</div>
+      </div>
+      <div class="fin-kpi-div"></div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-val">4.1 mo</div>
+        <div class="fin-kpi-lbl">Y1 Cash Runway Post-Close</div>
+      </div>
+      <div class="fin-kpi-div"></div>
+      <div class="fin-kpi">
+        <div class="fin-kpi-val">€46K</div>
+        <div class="fin-kpi-lbl">Monthly Burn Y1</div>
       </div>
     </div>
+
+    <!-- Cash runway bar -->
+    <div class="chart-card" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+      <div class="chart-card-title">Seed Runway to Series A</div>
+      <div class="chart-card-sub">€750K deployed over 18 months · Series A target Q1 2027 at €1.24M ARR</div>
+      <div class="runway-track">
+        <div class="runway-fill" style="width:100%;"></div>
+        <div class="runway-marker" style="left:22%;">
+          <div class="runway-marker-line"></div>
+          <div class="runway-marker-label">First close<br>€150K · Now</div>
+        </div>
+        <div class="runway-marker" style="left:55%;">
+          <div class="runway-marker-line"></div>
+          <div class="runway-marker-label">Full close<br>€750K · Q2 2026</div>
+        </div>
+        <div class="runway-marker runway-marker--gold" style="left:100%;">
+          <div class="runway-marker-line" style="background:var(--gold);"></div>
+          <div class="runway-marker-label" style="color:var(--gold);">Series A<br>Q1 2027</div>
+        </div>
+      </div>
+      <div class="runway-legend">
+        <span>▸ 18-month sprint: anchor freight partner → 28 clients → €1.24M ARR exit rate</span>
+      </div>
+    </div>
+
+    <!-- Income statement -->
+    <div class="chart-card" style="margin-bottom:1.5rem;">
+      <div class="chart-card-title">Income Statement Summary</div>
+      <div class="chart-card-sub">Fiscal years 2026–2030 · Euro (€) · Base case</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Line Item</th>
+            <th>Y1 2026</th><th>Y2 2027</th><th>Y3 2028</th><th>Y4 2029</th><th>Y5 2030</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Net Revenue</td><td class="num">€208K</td><td class="num">€1.24M</td><td class="num">€5.19M</td><td class="num">€15.0M</td><td class="num pos">€33.2M</td></tr>
+          <tr><td>Gross Margin</td><td class="num">71%</td><td class="num">73%</td><td class="num">75%</td><td class="num">77%</td><td class="num pos">79%</td></tr>
+          <tr><td>EBITDA</td><td class="num neg">(€592K)</td><td class="num neg">(€889K)</td><td class="num neg">(€700K)</td><td class="num pos">€2.46M</td><td class="num pos">€11.1M</td></tr>
+          <tr><td>EBITDA Margin</td><td class="num neg">-284%</td><td class="num neg">-72%</td><td class="num neg">-13%</td><td class="num pos">16.4%</td><td class="num pos">33.5%</td></tr>
+          <tr><td>Cash EOP</td><td class="num">€187K</td><td class="num">€3.41M</td><td class="num">€21.5M</td><td class="num">€25.9M</td><td class="num pos">€40.3M</td></tr>
+          <tr><td>Active Clients</td><td class="num">21</td><td class="num">122</td><td class="num">449</td><td class="num">1,237</td><td class="num pos">2,610</td></tr>
+          <tr><td>FTEs</td><td class="num">6</td><td class="num">11</td><td class="num">23</td><td class="num">39</td><td class="num">57</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Investment return calculator -->
+    <div class="chart-card calc-card">
+      <div class="chart-card-title">Investment Return Calculator</div>
+      <div class="chart-card-sub">Y5 exit · Pre-seed ownership ~16.7% pre-dilution · 8–18× revenue exit multiple</div>
+      <div class="calc-layout">
+        <div class="calc-input-col">
+          <label class="calc-label">Your investment amount</label>
+          <div class="calc-input-row">
+            <span class="calc-currency">€</span>
+            <input type="number" id="calcInput" class="calc-input" value="25000" min="25000" step="5000" oninput="calcReturns()">
+          </div>
+          <div class="calc-min-note">Minimum cheque: €25,000</div>
+          <div class="calc-presets">
+            <button class="calc-preset" onclick="setCalc(25000)">€25K</button>
+            <button class="calc-preset" onclick="setCalc(50000)">€50K</button>
+            <button class="calc-preset" onclick="setCalc(100000)">€100K</button>
+            <button class="calc-preset" onclick="setCalc(250000)">€250K</button>
+          </div>
+        </div>
+        <div class="calc-results" id="calcResults">
+          <div class="calc-scenario calc-scenario--bear">
+            <div class="calc-scenario-label">Bear · 8× revenue</div>
+            <div class="calc-scenario-val" id="bearVal">€662,500</div>
+            <div class="calc-scenario-moic" id="bearMoic">26.5× MOIC</div>
+          </div>
+          <div class="calc-scenario calc-scenario--base">
+            <div class="calc-scenario-label">Base · 12× revenue</div>
+            <div class="calc-scenario-val" id="baseVal">€995,000</div>
+            <div class="calc-scenario-moic" id="baseMoic">39.8× MOIC</div>
+          </div>
+          <div class="calc-scenario calc-scenario--bull">
+            <div class="calc-scenario-label">Bull · 18× revenue</div>
+            <div class="calc-scenario-val" id="bullVal">€1,492,500</div>
+            <div class="calc-scenario-moic" id="bullMoic">59.7× MOIC</div>
+          </div>
+        </div>
+      </div>
+      <p class="calc-disclaimer">Illustrative only. Based on VeriPura_Financial_Model_v5.xlsx. Assumes full €750K raise, ~16.7% pre-seed ownership diluting to ~7.5% at exit after Series A and B. Returns not guaranteed.</p>
+    </div>
+
   </div>
 </section>
 
@@ -1813,6 +2034,43 @@ CPI_DATA.forEach(d => {
     <div class="heatmap-bar" style="width:${pct}%"></div>`;
   heatmap.appendChild(div);
 });
+// ── INVESTMENT CALCULATOR ────────────────────────────────────────────────
+const RAISE = 750000;
+const OWNERSHIP = 0.167;  // ~16.7% pre-seed
+const DILUTION  = 0.449;  // ~7.5% post-dilution at exit (16.7% × 0.449)
+const Y5_EBITDA = 11100000;
+const MULTIPLES = { bear: 8, base: 12, bull: 18 };
+// Enterprise value = ARR × multiple; investor share = EV × diluted ownership
+// ARR Y5 = €33.2M
+const ARR_Y5 = 33200000;
+
+function fmtEur(n) {
+  if (n >= 1000000) return '€' + (n/1000000).toFixed(2).replace(/\.?0+$/,'') + 'M';
+  if (n >= 1000)    return '€' + Math.round(n/1000) + 'K';
+  return '€' + Math.round(n);
+}
+
+function calcReturns() {
+  const inv = parseFloat(document.getElementById('calcInput').value) || 25000;
+  const invFraction = inv / RAISE;
+
+  ['bear','base','bull'].forEach(s => {
+    const ev = ARR_Y5 * MULTIPLES[s];
+    const investorEv = ev * OWNERSHIP * DILUTION;
+    const returnAmt = investorEv * invFraction;
+    const moic = returnAmt / inv;
+    document.getElementById(s+'Val').textContent  = fmtEur(returnAmt);
+    document.getElementById(s+'Moic').textContent = moic.toFixed(1) + '× MOIC';
+  });
+}
+
+function setCalc(val) {
+  document.getElementById('calcInput').value = val;
+  calcReturns();
+}
+
+calcReturns();
+
 </script>
 </body>
 </html>
