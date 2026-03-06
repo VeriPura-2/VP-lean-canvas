@@ -1437,8 +1437,17 @@
     .charts-grid { gap: 1rem; }
   }
 </style>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.iife.min.js"></script>
-  <script type="text/javascript">(function(){ emailjs.init({ publicKey: "2HhEHDtm361XQsDYI" }); })();</script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    window.addEventListener('load', function () {
+      if (window.emailjs && typeof window.emailjs.init === 'function') {
+        emailjs.init({ publicKey: "2HhEHDtm361XQsDYI" });
+        console.log('EmailJS initialized successfully.');
+      } else {
+        console.error('EmailJS failed to load');
+      }
+    });
+  </script>
 </head>
 <body>
 
@@ -2513,7 +2522,7 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── MODAL DATA ──────────────────────────────────────────────────────────────
 const MODALS = {
   problem: {
