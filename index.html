@@ -3237,7 +3237,7 @@ async function vpSubmitContact() {
     .substring(0, 300);
 
   try {
-    const result = await emailjs.send('service_ax4gndi', '4le7t0a', {
+    const result = await emailjs.send('service_ax4gndi', 'template_lvowebd', {
       name: name,
       message: `Contact: ${contact}
 Interest summary: ${interest}`,
@@ -3374,11 +3374,6 @@ async function vpSend() {
 
     const founder = vpDetectFounder(text);
     vpAddBotMessage(founder.key, founder.name, reply);
-
-    const shouldShowContactForm = /leave your name and preferred contact method below|we'll reach out to you at the right time|would you like to speak with onno and thomas directly|contact form|be in touch at the right time/i.test(reply);
-    if (shouldShowContactForm) {
-      vpShowContactForm(document.getElementById('vpMessages'));
-    }
 
   } catch(e) {
     vpRemoveTyping();
