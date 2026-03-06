@@ -1337,6 +1337,17 @@
   }
   .vp-chat-send:hover { background: var(--blue); color: var(--white); }
   .vp-chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+  .vp-mic-btn {
+    background: none; border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 0.55rem 0.7rem;
+    cursor: pointer; font-size: 1rem; color: var(--muted);
+    transition: all .15s; flex-shrink: 0; line-height: 1;
+  }
+  .vp-mic-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .vp-mic-btn.vp-mic-active {
+    background: #E74C3C; border-color: #E74C3C;
+    color: var(--white); animation: vpPulse 1s infinite;
+  }
 
   .vp-chat-suggestions {
     display: flex; flex-wrap: wrap; gap: 0.4rem;
@@ -1677,7 +1688,7 @@
     <p style="font-size: 0.72rem; color: rgba(214,228,240,0.45); margin-top: 1.2rem; text-align:center;">Source: Transparency International CPI 2024 · Scale 0 (highly corrupt) → 100 (very clean)</p>
 
     <div style="margin-top: 1.2rem; text-align: center;">
-      <a href="https://thomasoberlin.github.io/VP-Trust-what-you-eat/" target="_blank" rel="noopener" style="font-size: 0.85rem; color: var(--gold); text-decoration: none; font-weight: 500; letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid rgba(212,168,71,0.4); padding: 0.55rem 1.2rem; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='rgba(212,168,71,0.1)'" onmouseout="this.style.background='transparent'">Explore the full corridor analysis →</a>
+      
     </div>
   
     </div>
@@ -1693,7 +1704,7 @@
     <h2 class="section-title">Business <span>Model</span></h2>
     <p class="section-desc">Click any cell to expand full detail.</p>
     <hr class="divider">
-    <p class="canvas-hint">Each section opens a detailed overlay with full content from the revised canvas.</p>
+    
 
     <div class="canvas-grid">
 
@@ -1738,7 +1749,7 @@
       <!-- CUSTOMER SEGMENTS -->
       <div class="canvas-cell cell-segments" onclick="openModal('segments')">
         <div class="cell-header"><span class="cell-icon">◎</span> Customer Segments</div>
-        <div class="cell-headline">EU/EEA · UK · US · Switzerland · GCC · Canada</div>
+        <div class="cell-headline">Initially North America and Western Europe</div>
         <p class="cell-preview">~10,000 EU/EEA SME food importers. ~3,500 US importers. 2,000 dual-compliance accounts (highest ARPA). Brazilian-corridor importers: highest-urgency 2026 segment.</p>
         <div class="cell-tags">
           <span class="tag">SME importers</span><span class="tag gold">Dual EU/US</span>
@@ -2901,6 +2912,7 @@ calcReturns();
   </div>
 
   <div class="vp-chat-input-row">
+    <button class="vp-mic-btn" id="vpMicBtn" onclick="vpToggleMic()" title="Speak your question">🎤</button>
     <input type="text" class="vp-chat-input" id="vpInput"
       placeholder="Ask anything about VeriPura…"
       onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); vpSend(); }">
@@ -2929,9 +2941,13 @@ RESPONSE LENGTH — HARD RULES:
 
 ANSWER FIRST: Always answer the question asked completely before doing anything else. Ask one follow-up only if genuinely needed.
 
-MEETING INVITATION: When inviting someone to schedule, just give the link with one short sentence. Do not precede it with a pitch summary, financial highlights or regulatory context. Example: "Want to set up 30 minutes with the team? Here's a link: https://calendar.app.google/aDWSnVgPhiHtsj4L6"
+MEETING INVITATION: When inviting someone to schedule, offer two options in one short message:
+1. Book directly via the calendar link: https://calendar.app.google/aDWSnVgPhiHtsj4L6
+2. Or if they prefer, they can leave their preferred contact details (WhatsApp number, email, etc.) in the chat and the founders will reach out.
+Keep it to 2 sentences maximum. Do not precede with pitch summaries, financial highlights or regulatory context.
+Example: "Want to connect with the team? You can book directly here: https://calendar.app.google/aDWSnVgPhiHtsj4L6 — or drop your preferred contact details in the chat and we'll reach out."
 
-CO-FOUNDER QUESTIONS: If asked about the other founder, speak in third person. Onno says "Thomas..." when describing Thomas, Thomas says "Onno..." when describing Onno. Never answer as if you are both founders.
+CO-FOUNDER QUESTIONS: If the question specifically asks about or mentions a founder by name, THAT FOUNDER must answer — always in first person ("I", "my", "me"). If someone asks about Onno, Onno answers: "I've spent 15+ years...". If someone asks about Thomas, Thomas answers: "I've built six ventures...". Never have one founder describe the other founder's background in third person — the named founder always speaks for themselves.
 
 TIMEZONE-BASED FOUNDER AVAILABILITY:
 Detect visitor's local UTC hour and suggest the right founder for a call:
@@ -3029,13 +3045,26 @@ function vpAddBotMessage(founderKey, founderName, text) {
 
   const msg = document.createElement('div');
   msg.className = 'vp-msg vp-msg--bot';
-  msg.textContent = text;
+  msg.innerHTML = vpFormatMessage(text);
 
   group.appendChild(speaker);
   group.appendChild(msg);
   messages.appendChild(group);
   messages.scrollTop = messages.scrollHeight;
   return group;
+}
+
+function vpFormatMessage(text) {
+  // Escape HTML first
+  const escaped = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  // Convert URLs to clickable links
+  return escaped.replace(
+    /(https?:\/\/[^\s]+)/g,
+    '<a href="$1" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;word-break:break-all;">$1</a>'
+  );
 }
 
 function vpAddUserMessage(text) {
@@ -3071,13 +3100,15 @@ function vpRemoveTyping() {
 function vpDetectFounder(text) {
   const lower = text.toLowerCase();
 
-  // Name-based override — always takes priority over keyword scoring
+  // Name-based override — ABSOLUTE. If the question names a founder, that founder responds.
+  // Also check recent history for name context
+  const allText = lower + ' ' + vpHistory.filter(m => m.role === 'user').map(m => m.content.toLowerCase()).slice(-2).join(' ');
   const mentionsThomas = /\bthomas\b/.test(lower);
   const mentionsOnno   = /\bonno\b/.test(lower);
   if (mentionsThomas && !mentionsOnno) return { key: 'thomas', name: 'Thomas Oberlin' };
   if (mentionsOnno   && !mentionsThomas) return { key: 'onno', name: 'Onno Stienen' };
 
-  // Keyword scoring
+  // Keyword scoring — only used when no name is mentioned
   const onnoTopics    = ['platform','compliance','blockchain','iota','regulatory','regulation','eudr','fsma','farm to fork','mercosur','corridor','cpi','document','attestation','supply chain','product','import','food','certif','how does','how it','technical','applet','label','nutritional','demo','try'];
   const thomasTopics  = ['invest','safe','valuation','financial','revenue','moic','return','raise','funding','cap table','go-to-market','gtm','channel','freight','forwarder','traction','milestone','team','founder','vision','exit','series a','burn','cac','ltv','check','stage','seed','angel','vc','fund'];
   let onnoScore   = onnoTopics.filter(t => lower.includes(t)).length;
@@ -3101,6 +3132,70 @@ function vpGetTimezoneContext() {
   if (utcHour >= 0 && utcHour < 7) return 'onno';
   if (utcHour >= 7 && utcHour < 12) return 'both';
   return 'thomas';
+}
+
+// ── SPEECH TO TEXT ────────────────────────────────────────────────────────
+let vpRecognition = null;
+let vpMicRunning  = false;
+
+function vpToggleMic() {
+  const btn = document.getElementById('vpMicBtn');
+
+  // Check browser support
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert('Speech input is supported in Chrome and Edge. Please use one of those browsers for voice input.');
+    return;
+  }
+
+  if (vpMicRunning) {
+    // Stop listening
+    vpRecognition.stop();
+    return;
+  }
+
+  // Start listening
+  vpRecognition = new SpeechRecognition();
+  vpRecognition.lang = 'en-US';
+  vpRecognition.interimResults = false;
+  vpRecognition.maxAlternatives = 1;
+
+  vpRecognition.onstart = () => {
+    vpMicRunning = true;
+    btn.classList.add('vp-mic-active');
+    btn.title = 'Listening… click to stop';
+    document.getElementById('vpInput').placeholder = 'Listening…';
+  };
+
+  vpRecognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    document.getElementById('vpInput').value = transcript;
+    vpMicRunning = false;
+    btn.classList.remove('vp-mic-active');
+    btn.title = 'Speak your question';
+    document.getElementById('vpInput').placeholder = 'Ask anything about VeriPura…';
+    // Auto-send after a short pause
+    setTimeout(vpSend, 400);
+  };
+
+  vpRecognition.onerror = (event) => {
+    vpMicRunning = false;
+    btn.classList.remove('vp-mic-active');
+    btn.title = 'Speak your question';
+    document.getElementById('vpInput').placeholder = 'Ask anything about VeriPura…';
+    if (event.error !== 'no-speech') {
+      console.warn('Speech recognition error:', event.error);
+    }
+  };
+
+  vpRecognition.onend = () => {
+    vpMicRunning = false;
+    btn.classList.remove('vp-mic-active');
+    btn.title = 'Speak your question';
+    document.getElementById('vpInput').placeholder = 'Ask anything about VeriPura…';
+  };
+
+  vpRecognition.start();
 }
 
 async function vpSend() {
