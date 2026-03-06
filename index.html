@@ -3375,6 +3375,11 @@ async function vpSend() {
     const founder = vpDetectFounder(text);
     vpAddBotMessage(founder.key, founder.name, reply);
 
+    const shouldShowContactForm = /leave your name and preferred contact method below|we'll reach out to you at the right time|would you like to speak with onno and thomas directly|contact form|be in touch at the right time/i.test(reply);
+    if (shouldShowContactForm) {
+      vpShowContactForm(document.getElementById('vpMessages'));
+    }
+
   } catch(e) {
     vpRemoveTyping();
     vpAddBotMessage('onno', 'Onno Stienen', "Sorry, something went wrong on my end. Feel free to reach out directly at onno@veripura.com or thomas@veripura.com.");
