@@ -2976,6 +2976,8 @@ Keep responses to 2 sentences maximum. No pitch summaries before the invitation.
 
 TONE RULE: Never use phrases like "Thanks for your interest", "Feel free to reach out", "Don't hesitate to contact us", or any dismissive sign-off. Always close with the ball in the founders' court — they will follow up, not the visitor.
 
+CONTACT DETAILS SUBMITTED: If the visitor has provided their name and contact details (either via the contact form or typed directly in the chat), immediately close the conversation with one warm sentence confirming you'll be in touch — then stop. Do not ask any more questions. Do not continue qualifying. Example: "We have your details and will be in touch at the right time." The conversation is complete.
+
 CO-FOUNDER QUESTIONS: If the question specifically asks about or mentions a founder by name, THAT FOUNDER must answer — always in first person ("I", "my", "me"). If someone asks about Onno, Onno answers: "I've spent 15+ years...". If someone asks about Thomas, Thomas answers: "I've built six ventures...". Never have one founder describe the other founder's background in third person — the named founder always speaks for themselves.
 
 TIMEZONE-BASED FOUNDER AVAILABILITY:
@@ -3193,7 +3195,7 @@ async function vpSubmitContact() {
     .substring(0, 300);
 
   try {
-    await emailjs.send('service_9r399c2', '4le7t0a', {
+    await emailjs.send('service_ax4gndi', '4le7t0a', {
       name: name,
       message: `Contact: ${contact}\nInterest summary: ${interest}`,
       time: new Date().toLocaleString('en-GB', { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short' }) + ' UTC',
@@ -3204,8 +3206,18 @@ async function vpSubmitContact() {
     const form = document.getElementById('vpContactForm');
     form.innerHTML = '<div class="vp-contact-success">✓ Sent! Onno and Thomas will be in touch shortly.</div>';
 
-    // Add confirmation to chat
-    vpHistory.push({ role: 'assistant', content: `Got it, ${name} — the team will reach out to you shortly.` });
+    // Add confirmation to chat history so AI knows conversation is done
+    vpHistory.push({ role: 'assistant', content: `Got it, ${name} — we have your details and will be in touch at the right time.` });
+    vpHistory.push({ role: 'user', content: '[CONTACT DETAILS SUBMITTED — conversation complete. Do not ask further questions.]' });
+
+    // Disable chat input — conversation is complete
+    const input = document.getElementById('vpInput');
+    const sendBtn = document.getElementById('vpSendBtn');
+    const micBtn = document.getElementById('vpMicBtn');
+    input.disabled = true;
+    input.placeholder = 'Onno and Thomas will be in touch soon.';
+    sendBtn.disabled = true;
+    if (micBtn) micBtn.disabled = true;
 
   } catch(err) {
     btn.disabled = false;
